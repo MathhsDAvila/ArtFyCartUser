@@ -83,34 +83,35 @@ export default function CarrinhoScreen() {
   };
 
   // Finaliza compra
-  const handleCheckout = async () => {
-    try {
-      const token = await AsyncStorage.getItem('userToken');
-      if (!token) {
-        Alert.alert('Login necessário', 'Faça login para continuar.');
-        router.push('/login');
-        return;
-      }
+// src/app/carrinho.js - altere handleCheckout para:
 
-      const response = await fetch('http://localhost:3000/cart/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Falha ao finalizar a compra.');
-      }
-
-      Alert.alert('Sucesso!', 'Compra realizada com sucesso.');
-      setCartItems([]); // Limpa localmente
-      router.push('/meus-pedidos'); // Redireciona para pedidos
-    } catch (error) {
-      Alert.alert('Erro', error.message);
+const handleCheckout = async () => {
+  try {
+    const token = await AsyncStorage.getItem('userToken');
+    if (!token) {
+      Alert.alert('Login necessário', 'Faça login para continuar.');
+      router.push('/login');
+      return;
     }
-  };
+
+    const response = await fetch('http://localhost:3000/cart/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Falha ao finalizar compra.');
+    }
+
+    Alert.alert('Sucesso!', 'Compra realizada com sucesso.');
+    router.push('/meus-pedidos'); // Redireciona para meus pedidos
+  } catch (error) {
+    Alert.alert('Erro', error.message || 'Não foi possível finalizar a compra.');
+  }
+};
 
   // Calcula total
   useEffect(() => {

@@ -139,23 +139,25 @@ export default function LojaScreen() {
           <Text style={styles.noResults}>Nenhum produto encontrado.</Text>
         )}
 
-        {displayedProducts.map((item) => (
-          <View key={item.id} style={styles.card}>
-            <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            <View style={styles.info}>
-              <Text style={styles.productName}>{item.name}</Text>
-              <Text style={styles.productPrice}>R$ {item.price.toFixed(2).replace('.', ',')}</Text>
-              <View style={styles.buttonGroup}>
-                <TouchableOpacity style={styles.smallButton} onPress={() => addToCart(item)}>
-                  <Text style={styles.smallButtonText}>Carrinho</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.smallButton, styles.buyButton]} onPress={() => handleBuyNow(item)}>
-                  <Text style={styles.smallButtonText}>Comprar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        ))}
+       {displayedProducts.map((item) => (
+  <View key={item.id} style={styles.card}>
+    <Image source={{ uri: item.imageUrl }} style={styles.image} />
+    <View style={styles.info}>
+      <Text style={styles.productName}>{item.name}</Text>
+      <Text style={styles.productPrice}>R$ {item.price.toFixed(2).replace('.', ',')}</Text>
+      
+      {/* AQUI VAMOS COLOCAR O BOTÃO */}
+      <View style={styles.buttonGroup}>
+        <TouchableOpacity style={styles.smallButton} onPress={() => addToCart(item)}>
+          <Text style={styles.smallButtonText}>Carrinho</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.smallButton, styles.buyButton]} onPress={() => handleBuyNow(item)}>
+          <Text style={styles.smallButtonText}>Comprar</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </View>
+))}
       </ScrollView>
 
       {/* MODAL DE FILTRO */}
@@ -320,5 +322,24 @@ const styles = {
     textAlign: 'center',
     color: '#0066cc',
     marginTop: 10,
-  },
+  },buttonGroup: {
+  flexDirection: 'row',
+  gap: 8,
+  marginTop: 12,
+},
+smallButton: {
+  flex: 1,
+  backgroundColor: '#0066cc',
+  paddingVertical: 6,
+  borderRadius: 6,
+  alignItems: 'center',
+},
+buyButton: {
+  backgroundColor: '#232637',
+},
+smallButtonText: {
+  color: '#fff',
+  fontSize: 12,
+  fontWeight: 'bold',
+},
 };

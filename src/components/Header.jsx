@@ -460,6 +460,7 @@ const handleRegister = async () => {
                 <Text style={styles.menuText}>{item.name}</Text>
               </TouchableOpacity>
             ))}
+            
             <View style={styles.menuDivider} />
             <TouchableOpacity style={styles.menuItem} onPress={() => handleNavigate('meus-pedidos')}>
               <Ionicons name="document-text" size={24} color="black" />
